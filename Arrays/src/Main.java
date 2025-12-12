@@ -41,6 +41,7 @@ public class Main {
         return res;
     }
 
+//    BRUTE FORCE
     public static int[] productExceptSelf(int[] arr) {
         /*
 
@@ -60,13 +61,52 @@ public class Main {
         return res;
     }
 
+//    OPTIMIZED APPROACH -> EXTRA SPACE
+    public static int[] productExceptSelfOptimized(int[] arr) {
+        /*
+
+         */
+        int n = arr.length;
+
+        int[] left = new int[n];
+        int[] right = new int[n];
+
+//        FILLING LEFT
+        for(int i = 0 ; i < n ; i++){
+            if(i == 0) {
+                left[i] = 1;
+                continue;
+            }
+
+            left[i] = left[i-1]*arr[i-1];
+        }
+
+//        FILLING RIGHT
+        for(int i = n-1 ; i >= 0 ; i--){
+            if(i == n-1) {
+                right[i] = 1;
+                continue;
+            }
+
+            right[i] = right[i+1]*arr[i+1];
+        }
+
+//        FINDING FINAL ANS
+        int[] res = new int[n];
+        for(int i = 0 ; i < n ; i++){
+            res[i] = left[i]*right[i];
+        }
+
+        return res;
+    }
+
     public static void main(String[] args){
 
-        int[] arr = {4,5,-1,4,6};
+        int[] arr = {1,2,3,4,5};
 
 //        reverse(arr);
 //        int[] twoSumArr = twoSum(arr , 9);
-        int[] res = productExceptSelf(arr);
+        int[] res = productExceptSelfOptimized(arr);
         for(int e : res){
             System.out.print(e + "\t");
         }
